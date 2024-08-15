@@ -2,7 +2,7 @@ from tablero import Tablero
 
 class Ajedrez:
     def __init__(self, tablero):
-        self.__tablero__ = Tablero()
+        self.__tablero__ = tablero
         self.__turno__ = "BLANCAS"
 
     def move (

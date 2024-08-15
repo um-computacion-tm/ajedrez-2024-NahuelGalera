@@ -1,14 +1,14 @@
 # Changelog
 
-## [0.1] -- 13-08-2024
+## [0.2] -- 13-08-2024
 
 ### Agregado
--    Primeras lineas hechas en clase
+-    Test de ajedrez.py con 2 OK
 - 
 - 
 
 ### Modificado
--    
+-    Correccion clase Ajedrez con "tablero"
 - 
 - 
 
