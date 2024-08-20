@@ -1,6 +1,6 @@
 import unittest
-from ajedrez import Ajedrez
-from tablero import Tablero
+from codigo_ajedrez.ajedrez import Ajedrez
+from codigo_ajedrez.tablero import Tablero
 
 class Ajedrez:
     def __init__(self, tablero):

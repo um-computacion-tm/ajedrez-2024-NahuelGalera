@@ -1,4 +1,4 @@
-from piezas import Torre
+from codigo_ajedrez.piezas import Torre
 
 class Tablero:
     def __init__(self, posiciones):
