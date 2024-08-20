@@ -1,6 +1,6 @@
 import unittest
-from piezas import Torre
-from tablero import Tablero
+from codigo_ajedrez.piezas import Torre
+from codigo_ajedrez.tablero import Tablero
 
 class TestTablero(unittest.TestCase):
     def setUp(self):
@@ -14,7 +14,7 @@ class TestTablero(unittest.TestCase):
         for x, y, color in posiciones_torre:
             torre = self.tablero.get_pieza(x, y)
             self.assertIsInstance(torre, Torre)
-            self.assertEqual(torre.color, color)
+            self.assertEqual(torre.__color__, color)
 
     def test_get_pieza(self):
         # Verifico cuando get_pieza me de un valor None en una posicion vacia
