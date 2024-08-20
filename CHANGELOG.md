@@ -1,14 +1,14 @@
 # Changelog
 
-## [0.3] -- 15-08-2024
+## [0.4] -- 19-08-2024
 
 ### Agregado
--    Test de tablero con 2 OK
-- 
-- 
+-   Prueba nuevo codigo tablero (ChessEngine.py; ChessMain.py)
+-   Creacion de nuevos archivos para segunda forma de hacerlo con pygame
+-   Imagenes de las piezas
 
 ### Modificado
--    Agrego de archivos originales del video test.py - main.py
+-   Pygame a requirements
 - 
 - 
 

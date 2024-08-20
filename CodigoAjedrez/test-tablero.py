@@ -1,6 +1,6 @@
 import unittest
-from piezas import Torre
-from tablero import Tablero
+from CodigoAjedrez import Torre
+from CodigoAjedrez import Tablero
 
 class TestTablero(unittest.TestCase):
     def setUp(self):
