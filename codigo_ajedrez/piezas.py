@@ -3,8 +3,6 @@ class Pieza:
     def __init__(self, color):
         self.__color__ = color
 
-class Torre(Pieza):
-    ...
+    def mover(self):
+        pass
 
-class Peon(Pieza):
-    ...
