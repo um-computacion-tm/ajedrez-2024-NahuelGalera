@@ -1,18 +1,18 @@
 # Changelog
 
-## [0.4] -- 19-08-2024
+## [0.5] -- 20-08-2024
 
 ### Agregado
--   Prueba nuevo codigo tablero (ChessEngine.py; ChessMain.py)
--   Creacion de nuevos archivos para segunda forma de hacerlo con pygame
--   Imagenes de las piezas
+-   Agregado piezas
+-   
+-   
 
 ### Modificado
--   Pygame a requirements
+-   Testeos cambiados por archivos
 - 
 - 
 
 ### Borrado
--    
+-   Juego hecho con pygame
 - 
 - 

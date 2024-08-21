@@ -13,7 +13,6 @@ class Ajedrez:
             to_col):
         # Validar coordenadas
         self.validar_coordenadas(from_row, from_col, to_row, to_col)
-
         pieza = self.__tablero__.get_pieza(from_row, from_col)
         self.cambiar_turno()
 
