@@ -1,18 +1,18 @@
 # Changelog
 
-## [0.5] -- 20-08-2024
+## [0.-]- 21-08-2024
 
 ### Agregado
--   Agregado piezas
+-   
 -   
 -   
 
 ### Modificado
--   Testeos cambiados por archivos
+-   Prueba tablero para dibujar
 - 
 - 
 
 ### Borrado
--   Juego hecho con pygame
+-  
 - 
 - 
