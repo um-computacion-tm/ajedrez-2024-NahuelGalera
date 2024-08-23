@@ -1,13 +1,25 @@
 from codigo_ajedrez.pieza import Pieza
+from codigo_ajedrez.tablero import tablero
+
 
 class Alfil(Pieza):
     def mover(self, inicio, final):
-        # A bishop can move any number of squares diagonally
-        # So, the absolute difference between the inicio and final filas
-        # must be equal to the absolute difference between the inicio and final columns
+        # Movimiento en diagonal
+        # La absoluta diferencia entre inicio y final filas tiene que ser igual a la absoluta diferencia entre inicio y final columnas
         inicio_fila, inicio_col = inicio
         final_fila, final_col = final
-        if abs(inicio_fila - final_fila) == abs(inicio_col - final_col):
-            return True
-        else:
+        # Verificar movimiento diagional
+        if abs(inicio_fila - final_fila) != abs(inicio_col - final_col):
             return False
+
+        # Verificar que no haya piezas de por medio
+        fila_paso = 1 if final_fila > inicio_fila else -1
+        col_paso = 1 if final_col > inicio_col else -1
+
+        fila_actual, col_actual = inicio_fila + fila_paso, inicio_col + col_paso
+        while fila_actual != final_fila and col_actual != final_col:
+            if tablero[fila_actual][col_actual] != ' ':
+                return False
+            fila_actual, col_actual = fila_actual + fila_paso, col_actual + col_paso
+
+        return True

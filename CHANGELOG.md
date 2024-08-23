@@ -1,18 +1,19 @@
 # Changelog
 
-## [0.7] -- 22-08-2024
+## [0.8] -- 22-08-2024
 
 ### Agregado
--   Test de piezas
+-   
 -   
 -   
 
 ### Modificado
--   Piezas torre y alfil con movimientos
--   Archivo de pieza.py con nuevos atributos
-- 
+-   Movimiento torre y alfil
+-   Logica de ajedrez.py turnos estado y victoria
+-   Test_piezas con nuevos movimientos
+-   
 
 ### Borrado
--   Juego hecho con pygame
+-   
 - 
 - 
