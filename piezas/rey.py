@@ -1,4 +1,4 @@
-from codigo_ajedrez.piezas import Pieza
+from codigo_ajedrez.pieza import Pieza
 
 class Rey(Pieza):
     def mover(self):

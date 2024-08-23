@@ -1,4 +1,4 @@
-from codigo_ajedrez.piezas import Torre
+from piezas.torre import Torre
 
 class Tablero:
     def __init__(self, posiciones):
@@ -15,9 +15,6 @@ class Tablero:
                     # Imprime la pieza
                     print(pieza, end="")
             print()  # Nueva línea al final de cada fila
-
-    def get_pieza(self, row, col):
-        return self.__posiciones__[row][col]
 
 # Ejemplo de uso:
 posiciones = [

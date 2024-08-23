@@ -1,0 +1,25 @@
+import unittest
+from ..codigo_ajedrez import pieza
+from codigo_ajedrez.pieza import Pieza
+from piezas.torre import Torre
+from piezas.alfil import Alfil
+
+class TestPiezas(unittest.TestCase):
+    def test_torre(self):
+        torre = Torre("BLANCA")
+        self.assertTrue(torre.mover((0, 0), (0, 3)))
+        self.assertTrue(torre.mover((0, 0), (5, 0)))
+        self.assertFalse(torre.mover((0, 0), (3, 3)))
+
+    def test_alfil(self):
+        alfil = Alfil("NEGRA")
+        self.assertTrue(alfil.mover((0, 0), (3, 3)))
+        self.assertTrue(alfil.mover((3, 3), (0, 0)))
+        self.assertFalse(alfil.mover((0, 0), (0, 3)))
+
+    def test_pieza(self):
+        with self.assertRaises(TypeError):
+            p = Pieza("BLANCA")  # Should raise TypeError because Pieza is abstract
+
+if __name__ == "__main__":
+    unittest.main()
