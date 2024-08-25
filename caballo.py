@@ -1,4 +1,4 @@
-from codigo_ajedrez.pieza import Pieza
+from pieza import Pieza
 
 class Caballo(Pieza):
     def mover(self):

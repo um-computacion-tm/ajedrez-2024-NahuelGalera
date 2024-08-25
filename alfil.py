@@ -1,8 +1,11 @@
-from codigo_ajedrez.pieza import Pieza
-from codigo_ajedrez.tablero import tablero
+from pieza import Pieza
+from tablero import tablero
 
 
 class Alfil(Pieza):
+    def __init__(self, color):
+        self.__color__ = color
+
     def mover(self, inicio, final):
         # Movimiento en diagonal
         # La absoluta diferencia entre inicio y final filas tiene que ser igual a la absoluta diferencia entre inicio y final columnas

@@ -1,10 +1,10 @@
 import unittest
-from piezas.torre import Torre
-from codigo_ajedrez.tablero import Tablero
+from torre import Torre
+from tablero import Tablero
 
 class TestTablero(unittest.TestCase):
     def setUp(self):
-        self.__tablero__ = Tablero([])
+        self.__tablero__ = Tablero()
 
     def test_get_pieza(self):
         # Testeo de la ficha en pos especifica

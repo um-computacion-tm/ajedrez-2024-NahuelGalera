@@ -1,5 +1,5 @@
-from codigo_ajedrez.pieza import Pieza
-from codigo_ajedrez.tablero import tablero
+from pieza import Pieza
+from tablero import tablero
 
 class Torre(Pieza):
     def mover(self, inicio, final):
@@ -7,7 +7,7 @@ class Torre(Pieza):
         # Asique fila o columna deben ser iguales a la posicion anterior
         inicio_fila, inicio_col = inicio
         final_fila, final_col = final
-        
+
         # Verificar que el movimiento es en línea recta
         if inicio_fila != final_fila and inicio_col != final_col:
             return False

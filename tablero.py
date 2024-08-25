@@ -26,6 +26,10 @@ class Tablero:
         print(' ', ' '.join('\033[1m' + letra + '\033[0m' for letra in letras))
         for i, fila in enumerate(self.__tablero__, start=1):
             print(i, ' '.join(fila))
+
+    def get_pieza(self, x, y):
+        # Logic to get a piece at the given coordinates
+        return self.__tablero__[x][y]
     
 
 tablero = Tablero()

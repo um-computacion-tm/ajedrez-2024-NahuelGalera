@@ -1,8 +1,8 @@
 import unittest
-from codigo_ajedrez import tablero
-from codigo_ajedrez.pieza import Pieza
-from piezas.torre import Torre
-from piezas.alfil import Alfil
+from pieza import Pieza
+from torre import Torre
+from alfil import Alfil
+from tablero import tablero
 
 class TestPiezas(unittest.TestCase):
     def setUp(self):

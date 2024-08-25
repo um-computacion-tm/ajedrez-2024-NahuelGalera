@@ -1,16 +1,16 @@
 # Changelog
 
-## [0.8] -- 22-08-2024
+## [0.9] -- 24-08-2024
 
 ### Agregado
--   
+-   Movimiento de rey
 -   
 -   
 
 ### Modificado
--   Movimiento torre y alfil
--   Logica de ajedrez.py turnos estado y victoria
--   Test_piezas con nuevos movimientos
+-   Cambios en importaciones
+-   
+-   
 -   
 
 ### Borrado
