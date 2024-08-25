@@ -8,10 +8,25 @@ class Ajedrez:
     def cambiar_turno(self):
         self.__turno__ = 'negro' if self.__turno__ == 'blanco' else 'blanco'
 
+    def es_movimiento_valido(self, inicio, fin):
+        # Check if the move is within the bounds of the board
+        if not (0 <= inicio[0] < 8 and 0 <= inicio[1] < 8 and 0 <= fin[0] < 8 and 0 <= fin[1] < 8):
+            return False
+
+        # Check if the piece being moved belongs to the current player
+        pieza = self.__tablero__.get_pieza(*inicio)
+        if (self.__turno__ == 'blanco' and pieza.isupper()) or (self.__turno__ == 'negro' and pieza.islower()):
+            return False
+
+        # TODO: Check if the move is valid according to the rules of the game for that piece
+
+        return True
+    
     def mover_pieza(self, inicio, fin):
-        # Aquí deberías agregar validaciones para asegurarte de que el movimiento es legal
-        # Por ejemplo, verificar que la pieza en la posición inicial es del color correcto,
-        # que la pieza puede moverse a la posición final, que el rey no queda en jaque, etc.
+        if not self.es_movimiento_valido(inicio, fin):
+            print("Invalid move")
+            return
+
         self.__tablero__.mover_pieza(inicio, fin)
         self.cambiar_turno()
 
@@ -29,17 +44,15 @@ class Ajedrez:
             # Por ejemplo, puedes pedirle al usuario que introduzca las posiciones inicial y final
             inicio = self.obtener_posicion()
             fin = self.obtener_posicion()
-
             self.mover_pieza(inicio, fin)
-
             if self.verificar_victoria():
                 print(f"Las piezas {self.__turno__} han ganado!")
                 break
-
     def obtener_posicion(self):
-        # Aquí deberías agregar la lógica para obtener una posición del usuario
-        # Por ejemplo, puedes pedirle al usuario que introduzca una fila y una columna
-        pass
+        fila = int(input("Enter the row: "))
+        columna = input("Enter the column: ").lower()
+        columna = ord(columna) - ord('a')  # Convert the column from a letter to a number
+        return fila, columna
 
 ajedrez = Ajedrez()
 ajedrez.jugar()

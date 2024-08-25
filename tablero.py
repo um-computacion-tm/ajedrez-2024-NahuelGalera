@@ -31,6 +31,15 @@ class Tablero:
         # Logic to get a piece at the given coordinates
         return self.__tablero__[x][y]
     
+    def get_element(self, fila, col):
+        return self.__tablero__[fila][col]
+    
+    def mover_pieza(self, inicio, fin):
+        # Logic to move a piece from the start position to the end position
+        pieza = self.get_element(*inicio)
+        self.__tablero__[inicio[0]][inicio[1]] = ' '  # remove the piece from the start position
+        self.__tablero__[fin[0]][fin[1]] = pieza  # place the piece at the end position
+
 
 tablero = Tablero()
 tablero.imprimir_tablero()

@@ -1,15 +1,15 @@
 # Changelog
 
-## [0.9] -- 24-08-2024
+## [0.10] -- 24-08-2024
 
 ### Agregado
--   Movimiento de rey
--   
+-   Movimiento peon
+-   Testeo peon
 -   
 
 ### Modificado
--   Cambios en importaciones
--   
+-   Testeo ajedrez, piezas y tablero
+-   Tablero y ajedrez arreglos
 -   
 -   
 

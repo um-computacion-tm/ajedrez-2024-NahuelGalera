@@ -1,6 +1,6 @@
 import unittest
-from tablero import Tablero
 from ajedrez import Ajedrez
+from tablero import Tablero
 
 class TestAjedrez(unittest.TestCase):
     def setUp(self):
