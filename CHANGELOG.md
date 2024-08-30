@@ -1,18 +1,19 @@
 # Changelog
 
-## [0.5] -- 20-08-2024
+## [0.11] -- 24-08-2024
 
 ### Agregado
--   Agregado piezas
+-   Movimiento reina
 -   
 -   
 
 ### Modificado
--   Testeos cambiados por archivos
-- 
-- 
+-   Testeo piezas y tablero
+-   Tablero, peon, torre y alfil
+-   
+-   
 
 ### Borrado
--   Juego hecho con pygame
+-   
 - 
 - 
