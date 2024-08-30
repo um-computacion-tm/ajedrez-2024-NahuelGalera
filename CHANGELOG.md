@@ -1,15 +1,15 @@
 # Changelog
 
-## [0.11] -- 24-08-2024
+## [0.12] -- 30-08-2024
 
 ### Agregado
--   Movimiento reina
+-   
 -   
 -   
 
 ### Modificado
+-   Reina, torre y tablero
 -   Testeo piezas y tablero
--   Tablero, peon, torre y alfil
 -   
 -   
 
