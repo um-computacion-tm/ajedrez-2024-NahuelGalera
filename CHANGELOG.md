@@ -1,16 +1,18 @@
 # Changelog
 
-## [0.12] -- 30-08-2024
+## NAHUEL GALERA
+
+## [0.13] -- 01-09-2024
 
 ### Agregado
--   
--   
+-   cli.py
+-   excepcions.py
 -   
 
 ### Modificado
--   Reina, torre y tablero
--   Testeo piezas y tablero
--   
+-   pieza.py
+-   ajedrez.py
+-   tablero.py
 -   
 
 ### Borrado

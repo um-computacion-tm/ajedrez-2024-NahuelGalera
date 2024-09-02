@@ -1,7 +1,7 @@
 
 from torre import Torre
 
-class tablero:
+class Tablero:
     def __init__(self, for_test = False):
         self.__posiciones__ = []
         for _ in range(8):
@@ -18,16 +18,16 @@ class tablero:
     def __str__(self):
         tablero_str = ""
         for fila in self.__posiciones__:
-            for cell in fila:
-                if cell is not None:
-                    tablero_str += str(cell)
+            for celda in fila:
+                if celda is not None:
+                    tablero_str += str(celda)
                 else:
                     tablero_str += " "
             tablero_str += "\n"
         return tablero_str
 
-    def get_piece(self, fila, col):
+    def get_pieza(self, fila, col):
         return self.__posiciones__[fila][col]
 
-    def set_piece(self, fila, col, piece):
-        self.__posiciones__[fila][col] = piece
+    def set_pieza(self, fila, col, pieza):
+        self.__posiciones__[fila][col] = pieza
