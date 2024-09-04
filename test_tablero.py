@@ -1,24 +1,29 @@
 import unittest
-from tablero import Tablero
-from unittest.mock import MagicMock
+from torre import Torre
+from tablero import tablero
 
 class TestTablero(unittest.TestCase):
     def setUp(self):
-        self.__tablero__ = Tablero()
+        self.__tablero__ = tablero(for_test=True)
 
-        # Mock the move method of each piece to always return True
-        for fila in self.__tablero__.__tablero__:  # Accediendo al atributo protegido
-            for pieza in fila:
-                if pieza != ' ':
-                    pieza.mover = MagicMock(return_value=True)
+    def test_init(self):
+        self.assertEqual(len(self.__tablero__.__posiciones__), 8)
+        for col in self.__tablero__.__posiciones__:
+            self.assertEqual(len(col), 8)
 
-    def test_mover_pieza(self):
-        # Verificar que la pieza en la posición (1, 0) es un "Peon('blanco')"
-        self.assertEqual(str(self.__tablero__.get_pieza(1, 0)), "Peon('blanco')")
+    def test_str(self):
+        expected_str = "        \n" * 8
+        self.assertEqual(str(self.__tablero__), expected_str)
 
-        # Mover una pieza blanca
-        self.__tablero__.mover_pieza((1, 0), (2, 0))
+    def test_get_piece(self):
+        torre = Torre("NEGRA", self.__tablero__)
+        self.__tablero__.set_piece(0, 0, torre)
+        self.assertEqual(self.__tablero__.get_piece(0, 0), torre)
 
-        # Verificar que la pieza se ha movido correctamente
-        self.assertEqual(str(self.__tablero__.get_pieza(2, 0)), "Peon('blanco')")
-        self.assertEqual(str(self.__tablero__.get_pieza(1, 0)), ' ')
+    def test_set_piece(self):
+        torre = Torre("NEGRA", self.__tablero__)
+        self.__tablero__.set_piece(0, 0, torre)
+        self.assertEqual(self.__tablero__.__posiciones__[0][0], torre)
+
+if __name__ == '__main__':
+    unittest.main()
