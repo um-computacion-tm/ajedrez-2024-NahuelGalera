@@ -1,15 +1,17 @@
 # Changelog
 
-## [0.11] -- 24-08-2024
+## NAHUEL GALERA
+
+## [0.16] -- 04-09-2024
 
 ### Agregado
--   Movimiento reina
--   
+-   Movimiento caballo
+-   Excepcion movimiento torre
 -   
 
 ### Modificado
--   Testeo piezas y tablero
--   Tablero, peon, torre y alfil
+-   
+-   
 -   
 -   
 
