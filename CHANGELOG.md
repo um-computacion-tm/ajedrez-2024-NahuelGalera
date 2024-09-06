@@ -2,15 +2,15 @@
 
 ## NAHUEL GALERA
 
-## [0.16] -- 04-09-2024
+## [0.17] -- 05-09-2024
 
 ### Agregado
--   Movimiento caballo
--   Excepcion movimiento torre
+-   Excepciones piezas y jaques
+-   
 -   
 
 ### Modificado
--   
+-   Movimientos reina y caballo
 -   
 -   
 -   
