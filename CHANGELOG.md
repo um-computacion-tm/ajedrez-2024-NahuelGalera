@@ -2,15 +2,15 @@
 
 ## NAHUEL GALERA
 
-## [0.17] -- 05-09-2024
+## [0.18] -- 06-09-2024
 
 ### Agregado
--   Excepciones piezas y jaques
+-   Test caballo y reina
 -   
 -   
 
 ### Modificado
--   Movimientos reina y caballo
+-   Arreglo caballo y reina
 -   
 -   
 -   
