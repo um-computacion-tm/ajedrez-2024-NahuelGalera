@@ -34,10 +34,12 @@ class Tablero:
             
 
     def __str__(self):
-        tablero_str = ""
-        for fila in self.__posiciones__:
+        tablero_str = "  a b c d e f g h\n"
+        for i, fila in enumerate(self.__posiciones__):
+            tablero_str += str(i+1) + " "
             for celda in fila:
-                tablero_str += str(celda) if celda is not None else " "
+                tablero_str += str(celda) if celda is not None else "."
+                tablero_str += " "
             tablero_str += "\n"
         return tablero_str
 
@@ -60,3 +62,7 @@ class Tablero:
             self.set_pieza(fila_origen, col_origen, None)
         else:
             raise ValueError("Movimiento no válido")
+        
+
+tablero = Tablero()
+print(tablero)

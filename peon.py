@@ -1,11 +1,16 @@
-from pieza import Pieza
+from piezas import Pieza
 
 class Peon(Pieza):
-    def __init__(self, color):
-        super().__init__(color)
+    def __init__(self, color, board):
+            super().__init__(color, board)
 
-    def __str__(self):
-        return f"Peon('{self.color}')"
+    @property
+    def blanca_str(self):
+        return "♙"
+
+    @property
+    def negra_str(self):
+        return "♟"
 
     def mover(self, inicio_fila, inicio_col, final_fila, final_col, tablero):
         direction = 1 if self.__color__ == 'BLANCA' else -1

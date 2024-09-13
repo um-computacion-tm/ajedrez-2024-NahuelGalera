@@ -1,4 +1,4 @@
-from pieza import Pieza
+from piezas import Pieza
 from exceptions import InvalidMoveBishopMove
 
 class Alfil(Pieza):

@@ -19,7 +19,7 @@ class Pieza(ABC):
 
     def __str__(self):
         if self.__color__ == "BLANCA":
-            return self.__blanca_str__
+            return self.blanca_str
         else:
-            return self.__negra_str__
+            return self.negra_str
 

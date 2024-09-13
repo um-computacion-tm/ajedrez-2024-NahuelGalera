@@ -1,6 +1,6 @@
 import unittest
 from reina import Reina
-from pieza import Pieza
+from piezas import Pieza
 from exceptions import InvalidMoveQueenMove
 
 class TestReina(unittest.TestCase):

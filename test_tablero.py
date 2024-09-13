@@ -1,29 +1,24 @@
 import unittest
-from torre import Torre
-from tablero import tablero
+from tablero import Tablero
 
 class TestTablero(unittest.TestCase):
     def setUp(self):
-        self.__tablero__ = tablero(for_test=True)
+        self.__tablero__ = Tablero(for_test=True)
 
-    def test_init(self):
-        self.assertEqual(len(self.__tablero__.__posiciones__), 8)
-        for col in self.__tablero__.__posiciones__:
-            self.assertEqual(len(col), 8)
+    def test_get_pieza(self):
+        with self.assertRaises(ValueError):
+            self.__tablero__.get_pieza(8, 8)  # Posición fuera de rango
+
+    def test_set_pieza(self):
+        with self.assertRaises(ValueError):
+            self.__tablero__.set_pieza(8, 8, None)  # Posición fuera de rango
+
+    def test_mover_pieza(self):
+        with self.assertRaises(ValueError):
+            self.__tablero__.mover_pieza(0, 0, 8, 8)  # Movimiento no válido
 
     def test_str(self):
-        expected_str = "        \n" * 8
-        self.assertEqual(str(self.__tablero__), expected_str)
-
-    def test_get_piece(self):
-        torre = Torre("NEGRA", self.__tablero__)
-        self.__tablero__.set_piece(0, 0, torre)
-        self.assertEqual(self.__tablero__.get_piece(0, 0), torre)
-
-    def test_set_piece(self):
-        torre = Torre("NEGRA", self.__tablero__)
-        self.__tablero__.set_piece(0, 0, torre)
-        self.assertEqual(self.__tablero__.__posiciones__[0][0], torre)
+        self.assertEqual(str(self.__tablero__), "  a b c d e f g h\n1 . . . . . . . . \n2 . . . . . . . . \n3 . . . . . . . . \n4 . . . . . . . . \n5 . . . . . . . . \n6 . . . . . . . . \n7 . . . . . . . . \n8 . . . . . . . . \n")
 
 if __name__ == '__main__':
     unittest.main()

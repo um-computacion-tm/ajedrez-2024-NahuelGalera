@@ -1,16 +1,17 @@
-from pieza import Pieza
+from piezas import Pieza
 from exceptions import InvalidMoveKnightMove
 
 class Caballo(Pieza):
-    def __init__(self, color, tablero):
-        super().__init__(color, tablero)
-        self.__posicion__ = None
+    def __init__(self, color, board):
+            super().__init__(color, board)
 
+    @property
     def blanca_str(self):
-        return "CB"
+        return "♘"
 
+    @property
     def negra_str(self):
-        return "CN"
+        return "♞"
 
     def set_posicion(self, posicion):
         self.__posicion__ = posicion

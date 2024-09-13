@@ -1,15 +1,17 @@
-from pieza import Pieza
+from piezas import Pieza
 from exceptions import InvalidMoveQueenMove
 
 class Reina(Pieza):
-    def __init__(self, color, tablero):
-        super().__init__(color, tablero)
+    def __init__(self, color, board):
+            super().__init__(color, board)
 
+    @property
     def blanca_str(self):
-        return "RB"
+        return "♕"
 
+    @property
     def negra_str(self):
-        return "RN"
+        return "♛"
 
     def movimientos_validos(self, fila, columna):
         movimientos = []

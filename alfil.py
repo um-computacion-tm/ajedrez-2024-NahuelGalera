@@ -1,9 +1,17 @@
-from pieza import Pieza
+from piezas import Pieza
 from exceptions import InvalidMoveBishopMove
 
 class Alfil(Pieza):
-    def __init__(self, color):
-        self.__color__ = color
+    def __init__(self, color, board):
+            super().__init__(color, board)
+
+    @property
+    def blanca_str(self):
+        return "♗"
+
+    @property
+    def negra_str(self):
+        return "♝"
 
     def mover(self, tablero, inicio, final):
         """
