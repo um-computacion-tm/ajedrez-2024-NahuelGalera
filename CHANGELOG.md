@@ -2,15 +2,15 @@
 
 ## NAHUEL GALERA
 
-## [0.19] -- 07-09-2024
+## [0.20] -- 12-09-2024
 
 ### Agregado
--   
+-   Testeo de alfil
 -   
 -   
 
 ### Modificado
--   Excepciones a tablero y demas piezas
+-   Alfil con excepciones
 -   
 -   
 -   
