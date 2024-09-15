@@ -4,34 +4,31 @@ from alfil import Alfil
 from reina import Reina
 from rey import Rey
 from peon import Peon
-
-from exceptions import InvalidMove, InvalidMoveNoPiece, InvalidMovePawnMove, InvalidMoveRookMove, InvalidMoveKingMove, InvalidMoveKnightMove, InvalidMoveBishopMove, InvalidMoveQueenMove, InvalidMoveCheck, InvalidMoveCheckmate
+from exceptions import *
 
 class Tablero:
-    def __init__(self, for_test = False):
-        self.__posiciones__ = [[None]*8 for _ in range(8)]
-        if not for_test:
-            # Coloca todas las piezas en sus posiciones iniciales
-            self.__posiciones__[0][0] = Torre("NEGRA", self)
-            self.__posiciones__[0][7] = Torre("NEGRA", self)
-            self.__posiciones__[7][7] = Torre("BLANCA", self)
-            self.__posiciones__[7][0] = Torre("BLANCA", self)
-            self.__posiciones__[0][1] = Caballo("NEGRA", self)
-            self.__posiciones__[0][6] = Caballo("NEGRA", self)
-            self.__posiciones__[7][6] = Caballo("BLANCA", self)
-            self.__posiciones__[7][1] = Caballo("BLANCA", self)
-            self.__posiciones__[0][2] = Alfil("NEGRA", self)
-            self.__posiciones__[0][5] = Alfil("NEGRA", self)
-            self.__posiciones__[7][5] = Alfil("BLANCA", self)
-            self.__posiciones__[7][2] = Alfil("BLANCA", self)
-            self.__posiciones__[0][3] = Reina("NEGRA", self)
-            self.__posiciones__[7][3] = Reina("BLANCA", self)
-            self.__posiciones__[0][4] = Rey("NEGRA", self)
-            self.__posiciones__[7][4] = Rey("BLANCA", self)
-            for i in range(8):
-                self.__posiciones__[1][i] = Peon("NEGRA", self)
-                self.__posiciones__[6][i] = Peon("BLANCA", self)
-            
+    def __init__(self):
+        self.__posiciones__ = [[None for _ in range(8)] for _ in range(8)]
+
+        self.__posiciones__[7][0] = Torre("NEGRA", self)
+        self.__posiciones__[7][7] = Torre("NEGRA", self)
+        self.__posiciones__[0][0] = Torre("BLANCA", self)
+        self.__posiciones__[0][7] = Torre("BLANCA", self)
+        self.__posiciones__[7][1] = Caballo("NEGRA", self)
+        self.__posiciones__[7][6] = Caballo("NEGRA", self)
+        self.__posiciones__[0][1] = Caballo("BLANCA", self)
+        self.__posiciones__[0][6] = Caballo("BLANCA", self)
+        self.__posiciones__[7][2] = Alfil("NEGRA", self)
+        self.__posiciones__[7][5] = Alfil("NEGRA", self)
+        self.__posiciones__[0][2] = Alfil("BLANCA", self)
+        self.__posiciones__[0][5] = Alfil("BLANCA", self)
+        self.__posiciones__[0][3] = Reina("BLANCA", self)
+        self.__posiciones__[7][3] = Reina("NEGRA", self)
+        self.__posiciones__[0][4] = Rey("BLANCA", self)
+        self.__posiciones__[7][4] = Rey("NEGRA", self)
+        for i in range(8):
+            self.__posiciones__[1][i] = Peon("BLANCA", self)
+            self.__posiciones__[6][i] = Peon("NEGRA", self)
 
     def __str__(self):
         tablero_str = "  a b c d e f g h\n"
@@ -57,12 +54,18 @@ class Tablero:
 
     def mover_pieza(self, fila_origen, col_origen, fila_destino, col_destino):
         pieza = self.get_pieza(fila_origen, col_origen)
-        if pieza is not None and pieza.puede_moverse_a(fila_destino, col_destino):
+        if pieza is not None and pieza.valid_positions(fila_origen, col_origen, fila_destino, col_destino):
             self.set_pieza(fila_destino, col_destino, pieza)
             self.set_pieza(fila_origen, col_origen, None)
         else:
             raise ValueError("Movimiento no válido")
         
+    def puede_moverse_a(self, fila, col):
+        print(f"Trying to move {self} to ({fila}, {col})")
+        return True
+    
+    def es_jaque_mate(self):
+        return False
 
 tablero = Tablero()
 print(tablero)

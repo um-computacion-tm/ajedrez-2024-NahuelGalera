@@ -9,17 +9,12 @@ class Ajedrez:
     def is_jugando(self):
         return True
 
-    def move(
-        self,
-        from_fila,
-        from_col,
-        to_fila,
-        to_col,
-    ):
-        # validate coords
-        piece = self.__tablero__.get_piece(from_fila, from_col)
+    def move(self, from_fila, from_col, to_fila, to_col):
+        # validate coordenadas
+        piece = self.__tablero__.get_pieza(from_fila, from_col)
         if not piece.valid_positions(from_fila, from_col, to_fila, to_col):
             raise InvalidMove()
+        self.__tablero__.mover_pieza(from_fila, from_col, to_fila, to_col)
         self.cambiar_turno()
 
 

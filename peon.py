@@ -32,3 +32,15 @@ class Peon(Pieza):
             return False
 
         return True
+    
+    def valid_positions(self, from_fila, from_col, to_fila, to_col):
+        if self.__color__ == "BLANCA":
+            if from_fila == 1:
+                return (to_fila == from_fila + 1 or to_fila == from_fila + 2) and from_col == to_col
+            else:
+                return to_fila == from_fila + 1 and from_col == to_col
+        else:
+            if from_fila == 6:
+                return (to_fila == from_fila - 1 or to_fila == from_fila - 2) and from_col == to_col
+            else:
+                return to_fila == from_fila - 1 and from_col == to_col
