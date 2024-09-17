@@ -12,12 +12,18 @@ class Ajedrez:
         return not self.is_game_over()
 
     def move(self, from_fila, from_col, to_fila, to_col):
-        # validate coordenadas
+        print(f"Intentando mover de ({from_fila}, {from_col}) a ({to_fila}, {to_col})")
         piece = self.__tablero__.get_piece(from_fila, from_col)
+        if piece is None:
+            print("No hay pieza en la posición inicial.")
+            raise InvalidMove()
+        print(f"Pieza encontrada: {piece}")
         if not piece.valid_positions(from_fila, from_col, to_fila, to_col):
+            print(f"Movimiento inválido según la pieza. Detalles: {piece}, de ({from_fila}, {from_col}) a ({to_fila}, {to_col})")
             raise InvalidMove()
         self.__tablero__.mover_pieza(from_fila, from_col, to_fila, to_col)
         self.cambiar_turno()
+        print(f"Turno cambiado a: {self.__turno__}")
 
     @property
     def turno(self):

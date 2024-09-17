@@ -2,16 +2,16 @@
 
 ## NAHUEL GALERA
 
-## [0.25] -- 17-09-2024
+## [0.26] -- 18-09-2024
 
 ### Agregado
--   valid positions de rey, reina y alfil
+-   Movimientos invalidos en ajedrez por pieza que no se encuentra en esa posicion
 -   
 -   
 
 ### Modificado
--   clase Pieza completa
--   atributo tablero corregido en tablero.py
+-   Movimiento de peon y comer pieza peon
+-   Testeo de peon a base de ultimas modificaciones
 -   
 -   
 
