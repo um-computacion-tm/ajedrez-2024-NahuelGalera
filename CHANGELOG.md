@@ -2,7 +2,7 @@
 
 ## NAHUEL GALERA
 
-## [0.30] -- 26-09-2024
+## [0.31] -- 27-09-2024
 
 ### Agregado
 -   Valid positions de peon
