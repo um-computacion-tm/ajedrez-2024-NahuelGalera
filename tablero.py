@@ -51,10 +51,18 @@ class Tablero:
 
     def mover_pieza(self, inicio_fila, inicio_col, final_fila, final_col):
         pieza = self.get_piece(inicio_fila, inicio_col)
-        if pieza is not None and pieza.mover(inicio_fila, inicio_col, final_fila, final_col, self):
-            self.set_piece(final_fila, final_col, pieza)
-            self.set_piece(inicio_fila, inicio_col, None)
+        print(f"Attempting to move piece from ({inicio_fila}, {inicio_col}) to ({final_fila}, {final_col})")
+        if pieza is not None:
+            print(f"Piece found: {pieza}")
+            if pieza.mover(inicio_fila, inicio_col, final_fila, final_col, self):
+                print(f"Move valid, updating board")
+                self.set_piece(final_fila, final_col, pieza)
+                self.set_piece(inicio_fila, inicio_col, None)
+            else:
+                print(f"Move invalid according to piece rules")
+                raise ValueError("Movimiento no válido")
         else:
+            print(f"No piece found at starting position")
             raise ValueError("Movimiento no válido")
         
     def puede_moverse_a(self, fila, col):

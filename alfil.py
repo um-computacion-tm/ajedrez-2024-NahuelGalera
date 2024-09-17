@@ -21,23 +21,13 @@ class Alfil(Pieza):
         inicio_fila, inicio_col = inicio
         final_fila, final_col = final
 
-        # Verificar movimiento diagonal
-        if abs(inicio_fila - final_fila) != abs(inicio_col - final_col):
-            raise InvalidMoveBishopMove()
-
-        # Verificar que no haya piezas de por medio
-        fila_paso = 1 if final_fila > inicio_fila else -1
-        col_paso = 1 if final_col > inicio_col else -1
-
-        fila_actual, col_actual = inicio_fila + fila_paso, inicio_col + col_paso
-        while fila_actual != final_fila and col_actual != final_col:
-            if tablero[fila_actual][col_actual] != ' ':
-                raise InvalidMoveBishopMove("Movimiento inválido: Hay una pieza en el camino")
-            fila_actual, col_actual = fila_actual + fila_paso, col_actual + col_paso
+        # Verificar movimiento diagonal y que no haya piezas de por medio
+        if not self.valid_positions(inicio_fila, inicio_col, final_fila, final_col, tablero):
+            raise InvalidMoveBishopMove("Movimiento inválido: Hay una pieza en el camino o el movimiento no es diagonal")
 
         return True
 
-    def valid_positions(self, from_fila, from_col, to_fila, to_col):
+    def valid_positions(self, from_fila, from_col, to_fila, to_col, tablero):
         """
         Verifica si el movimiento del alfil desde la posición inicial hasta la posición final es válido.
         """
@@ -51,7 +41,8 @@ class Alfil(Pieza):
 
         fila_actual, col_actual = from_fila + fila_paso, from_col + col_paso
         while fila_actual != to_fila and col_actual != to_col:
-            if self.tablero.get_piece(fila_actual, col_actual) is not None:
+            print(f"Verificando posición: ({fila_actual}, {col_actual})")  # Declaración de depuración
+            if tablero.get_piece(fila_actual, col_actual) is not None:
                 return False
             fila_actual, col_actual = fila_actual + fila_paso, col_actual + col_paso
 

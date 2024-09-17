@@ -5,14 +5,14 @@
 ## [0.29] -- 23-09-2024
 
 ### Agregado
--   Testeo excepciones
+-   Agrego excepciones tablero
 -   
 -   
 
 ### Modificado
--   
--   
--   
+-   Test alfil mas completo
+-   Validas posiciones alfil
+-   Testeo tablero con nuevos cambios
 -   
 
 ### Borrado
