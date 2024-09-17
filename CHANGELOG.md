@@ -2,16 +2,16 @@
 
 ## NAHUEL GALERA
 
-## [0.24] -- 16-09-2024
+## [0.25] -- 17-09-2024
 
 ### Agregado
--   excepciones game over y jugador valido
--   
--   
+-   Game Over por falta de piezas
+-   Game over por rendicion
+-   Falta de piezas en tablero
 
 ### Modificado
--   testeo cli
--   cli con excepciones game over y jugador invalido
+-   Validacion de posiciones caballo y torre
+-   
 -   
 -   
 

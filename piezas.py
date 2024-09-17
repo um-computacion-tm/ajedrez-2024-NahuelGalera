@@ -1,25 +1,8 @@
-
-from abc import ABC, abstractmethod
-
-class Pieza(ABC):
+class Pieza:
     def __init__(self, color, tablero):
         self.__color__ = color
         self.__tablero__ = tablero
-        super().__init__()
-
-    @property
-    @abstractmethod
-    def blanca_str(self):
-        pass
-
-    @property
-    @abstractmethod
-    def negra_str(self):
-        pass
 
     def __str__(self):
-        if self.__color__ == "BLANCA":
-            return self.blanca_str
-        else:
-            return self.negra_str
+        return self.__blanca_str__ if self.__color__ == "BLANCA" else self.__negra_str__
 

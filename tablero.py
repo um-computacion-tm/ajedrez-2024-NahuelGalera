@@ -49,7 +49,7 @@ class Tablero:
     def get_pieza(self, fila, col):
         return self.get_element(fila, col)
 
-    def set_pieza(self, fila, col, pieza):
+    def set_piece(self, fila, col, pieza):
         if 0 <= fila < 8 and 0 <= col < 8:
             self.__posiciones__[fila][col] = pieza
         else:
@@ -58,13 +58,20 @@ class Tablero:
     def mover_pieza(self, fila_origen, col_origen, fila_destino, col_destino):
         pieza = self.get_element(fila_origen, col_origen)
         if pieza is not None and pieza.valid_positions(fila_origen, col_origen, fila_destino, col_destino):
-            self.set_pieza(fila_destino, col_destino, pieza)
-            self.set_pieza(fila_origen, col_origen, None)
+            self.set_piece(fila_destino, col_destino, pieza)
+            self.set_piece(fila_origen, col_origen, None)
         else:
             raise ValueError("Movimiento no válido")
         
     def puede_moverse_a(self, fila, col):
         print(f"Trying to move {self} to ({fila}, {col})")
+        return True
+
+    def no_pieces_left(self, color):
+        for fila in self.__posiciones__:
+            for pieza in fila:
+                if pieza is not None and pieza.color == color:
+                    return False
         return True
 
 tablero = Tablero()
