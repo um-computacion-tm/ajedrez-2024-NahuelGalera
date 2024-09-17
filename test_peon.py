@@ -1,29 +1,45 @@
 import unittest
-from peon import Peon
+from piezas import Pieza
 from tablero import Tablero
+from peon import Peon
 
 class TestPeon(unittest.TestCase):
     def setUp(self):
-        self.tablero = Tablero()
-        self.peon_blanco = Peon('BLANCA')
-        self.peon_negro = Peon('NEGRA')
+        self.__tablero__ = Tablero()
+        self.__peon_blanco__ = Peon("BLANCA", self.__tablero__)
+        self.__peon_negro__ = Peon("NEGRA", self.__tablero__)
 
-    def test_mover_una_casilla(self):
-        self.tablero.set_element(6, 0, self.peon_blanco)
-        self.assertTrue(self.peon_blanco.mover(6, 0, 5, 0, self.tablero))
+    def test_mover(self):
+        # Test moving forward one square
+        self.assertTrue(self.__peon_blanco__.mover(1, 0, 2, 0, self.__tablero__))
+        self.assertTrue(self.__peon_negro__.mover(6, 0, 5, 0, self.__tablero__))
 
-    def test_mover_dos_casillas(self):
-        self.tablero.set_element(6, 0, self.peon_blanco)
-        self.assertTrue(self.peon_blanco.mover(6, 0, 4, 0, self.tablero))
+        # Test moving forward two squares from starting position
+        self.assertTrue(self.__peon_blanco__.mover(1, 0, 3, 0, self.__tablero__))
+        self.assertTrue(self.__peon_negro__.mover(6, 0, 4, 0, self.__tablero__))
 
-    def test_capturar(self):
-        self.tablero.set_element(6, 0, self.peon_blanco)
-        self.tablero.set_element(5, 1, self.peon_negro)
-        self.assertTrue(self.peon_blanco.mover(6, 0, 5, 1, self.tablero))
+        # Test moving forward two squares not from starting position
+        self.assertFalse(self.__peon_blanco__.mover(2, 0, 4, 0, self.__tablero__))
+        self.assertFalse(self.__peon_negro__.mover(5, 0, 3, 0, self.__tablero__))
 
-    def test_mover_invalido(self):
-        self.tablero.set_element(6, 0, self.peon_blanco)
-        self.assertFalse(self.peon_blanco.mover(6, 0, 4, 1, self.tablero))
+        # Test capturing
+        self.__tablero__.__posiciones__[2][1] = Pieza("NEGRA", self.__tablero__)
+        self.__tablero__.__posiciones__[5][1] = Pieza("BLANCA", self.__tablero__)
+        self.assertTrue(self.__peon_blanco__.mover(2, 0, 2, 1, self.__tablero__))
+        self.assertTrue(self.__peon_negro__.mover(5, 0, 5, 1, self.__tablero__))
+    
+    def test_valid_positions(self):
+        # Test moving forward one square
+        self.assertTrue(self.__peon_blanco__.valid_positions(1, 0, 2, 0))
+        self.assertTrue(self.__peon_negro__.valid_positions(6, 0, 5, 0))
+
+        # Test moving forward two squares from starting position
+        self.assertTrue(self.__peon_blanco__.valid_positions(1, 0, 3, 0))
+        self.assertTrue(self.__peon_negro__.valid_positions(6, 0, 4, 0))
+
+        # Test moving forward two squares not from starting position
+        self.assertFalse(self.__peon_blanco__.valid_positions(2, 0, 4, 0))
+        self.assertFalse(self.__peon_negro__.valid_positions(5, 0, 3, 0))
 
 if __name__ == '__main__':
     unittest.main()

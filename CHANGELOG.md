@@ -2,16 +2,16 @@
 
 ## NAHUEL GALERA
 
-## [0.16] -- 04-09-2024
+## [0.24] -- 16-09-2024
 
 ### Agregado
--   Movimiento caballo
--   Excepcion movimiento torre
+-   excepciones game over y jugador valido
+-   
 -   
 
 ### Modificado
--   
--   
+-   testeo cli
+-   cli con excepciones game over y jugador invalido
 -   
 -   
 

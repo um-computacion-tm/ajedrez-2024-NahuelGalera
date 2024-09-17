@@ -1,5 +1,5 @@
 import unittest
-from pieza import Pieza
+from piezas import Pieza
 from torre import Torre
 from alfil import Alfil
 from tablero import Tablero
