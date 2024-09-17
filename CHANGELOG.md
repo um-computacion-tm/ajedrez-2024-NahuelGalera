@@ -2,15 +2,15 @@
 
 ## NAHUEL GALERA
 
-## [0.32] -- 29-09-2024
+## [0.33] -- 01-10-2024
 
 ### Agregado
--   Historial movimientos
--   Reiniciar el juego
+-   
+-   
 -   
 
 ### Modificado
--   Game over si no tiene fichas
+-   Testeo ajedrez
 -   
 -   
 -   

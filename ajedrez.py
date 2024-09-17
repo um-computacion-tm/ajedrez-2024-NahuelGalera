@@ -28,7 +28,10 @@ class Ajedrez:
         self.__historial__.append(((from_fila, from_col), (to_fila, to_col)))
         self.cambiar_turno()
         print(f"Turno cambiado a: {self.__turno__}")
+        
+        # Check for game-over conditions
         if self.is_game_over():
+            self.cambiar_turno()  # Revert the turn change
             print(f"El jugador con piezas {self.__turno__} ha perdido.")
             raise GameOver(f"El jugador con piezas {self.__turno__} ha perdido.")
 
