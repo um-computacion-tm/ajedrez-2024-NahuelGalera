@@ -5,14 +5,14 @@
 ## [0.29] -- 23-09-2024
 
 ### Agregado
--   Agrego excepciones tablero
+-   Movimiento torre
 -   
 -   
 
 ### Modificado
--   Test alfil mas completo
--   Validas posiciones alfil
--   Testeo tablero con nuevos cambios
+-   Test cli
+-   Testeo torre
+-   
 -   
 
 ### Borrado
