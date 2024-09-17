@@ -1,0 +1,66 @@
+import unittest
+from exceptions import (
+    InvalidMove, InvalidPiece, InvalidPlayer, InvalidMoveNoPiece,
+    InvalidMovePawnMove, InvalidMoveRookMove, InvalidMoveKingMove,
+    InvalidMoveKnightMove, InvalidMoveBishopMove, InvalidMoveQueenMove,
+    GameOver
+)
+
+class TestExceptions(unittest.TestCase):
+    def test_invalid_move(self):
+        with self.assertRaises(InvalidMove) as context:
+            raise InvalidMove()
+        self.assertEqual(str(context.exception), "Movimiento inválido")
+
+    def test_invalid_piece(self):
+        with self.assertRaises(InvalidPiece) as context:
+            raise InvalidPiece()
+        self.assertEqual(str(context.exception), "Movimiento inválido: Pieza incorrecta")
+
+    def test_invalid_player(self):
+        with self.assertRaises(InvalidPlayer) as context:
+            raise InvalidPlayer()
+        self.assertEqual(str(context.exception), "Movimiento inválido: Jugador incorrecto")
+
+    def test_invalid_move_no_piece(self):
+        with self.assertRaises(InvalidMoveNoPiece) as context:
+            raise InvalidMoveNoPiece()
+        self.assertEqual(str(context.exception), "Movimiento inválido: No hay pieza en la posición inicial")
+
+    def test_invalid_move_pawn_move(self):
+        with self.assertRaises(InvalidMovePawnMove) as context:
+            raise InvalidMovePawnMove()
+        self.assertEqual(str(context.exception), "Movimiento inválido: El peón se mueve hacia adelante")
+
+    def test_invalid_move_rook_move(self):
+        with self.assertRaises(InvalidMoveRookMove) as context:
+            raise InvalidMoveRookMove()
+        self.assertEqual(str(context.exception), "Movimiento inválido: La torre se mueve en línea recta horizontal o vertical")
+
+    def test_invalid_move_king_move(self):
+        with self.assertRaises(InvalidMoveKingMove) as context:
+            raise InvalidMoveKingMove()
+        self.assertEqual(str(context.exception), "Movimiento inválido: El rey se puede mover una casilla en cualquier dirección")
+
+    def test_invalid_move_knight_move(self):
+        with self.assertRaises(InvalidMoveKnightMove) as context:
+            raise InvalidMoveKnightMove()
+        self.assertEqual(str(context.exception), "Movimiento inválido: El caballo se mueve en forma de L")
+
+    def test_invalid_move_bishop_move(self):
+        with self.assertRaises(InvalidMoveBishopMove) as context:
+            raise InvalidMoveBishopMove()
+        self.assertEqual(str(context.exception), "Movimiento inválido: El alfil se mueve en diagonal")
+
+    def test_invalid_move_queen_move(self):
+        with self.assertRaises(InvalidMoveQueenMove) as context:
+            raise InvalidMoveQueenMove()
+        self.assertEqual(str(context.exception), "Movimiento inválido: La reina se puede mover en cualquier dirección")
+
+    def test_game_over(self):
+        with self.assertRaises(GameOver) as context:
+            raise GameOver()
+        self.assertEqual(str(context.exception), "Juego terminado")
+
+if __name__ == '__main__':
+    unittest.main()

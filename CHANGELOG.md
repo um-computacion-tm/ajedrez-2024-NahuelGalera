@@ -2,15 +2,15 @@
 
 ## NAHUEL GALERA
 
-## [0.28] -- 22-09-2024
+## [0.29] -- 23-09-2024
 
 ### Agregado
--   
+-   Testeo excepciones
 -   
 -   
 
 ### Modificado
--   Testeo caballo completo
+-   
 -   
 -   
 -   
