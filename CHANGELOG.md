@@ -2,15 +2,15 @@
 
 ## NAHUEL GALERA
 
-## [0.31] -- 28-09-2024
+## [0.32] -- 29-09-2024
 
 ### Agregado
--   Promocion de peon
--   
+-   Historial movimientos
+-   Reiniciar el juego
 -   
 
 ### Modificado
--   
+-   Game over si no tiene fichas
 -   
 -   
 -   
