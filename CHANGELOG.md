@@ -2,7 +2,7 @@
 
 ## NAHUEL GALERA
 
-## [0.26] -- 18-09-2024
+## [0.26] -- 19-09-2024
 
 ### Agregado
 -   Movimientos invalidos en ajedrez por pieza que no se encuentra en esa posicion
