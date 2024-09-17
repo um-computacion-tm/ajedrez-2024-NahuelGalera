@@ -13,7 +13,7 @@ class Ajedrez:
 
     def move(self, from_fila, from_col, to_fila, to_col):
         # validate coordenadas
-        piece = self.__tablero__.get_pieza(from_fila, from_col)
+        piece = self.__tablero__.get_piece(from_fila, from_col)
         if not piece.valid_positions(from_fila, from_col, to_fila, to_col):
             raise InvalidMove()
         self.__tablero__.mover_pieza(from_fila, from_col, to_fila, to_col)

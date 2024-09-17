@@ -5,13 +5,13 @@
 ## [0.25] -- 17-09-2024
 
 ### Agregado
--   Game Over por falta de piezas
--   Game over por rendicion
--   Falta de piezas en tablero
+-   valid positions de rey, reina y alfil
+-   
+-   
 
 ### Modificado
--   Validacion de posiciones caballo y torre
--   
+-   clase Pieza completa
+-   atributo tablero corregido en tablero.py
 -   
 -   
 
