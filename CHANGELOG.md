@@ -2,16 +2,16 @@
 
 ## NAHUEL GALERA
 
-## [0.29] -- 23-09-2024
+## [0.30] -- 26-09-2024
 
 ### Agregado
--   Movimiento torre
+-   Valid positions de peon
 -   
 -   
 
 ### Modificado
--   Test cli
--   Testeo torre
+-   
+-   
 -   
 -   
 

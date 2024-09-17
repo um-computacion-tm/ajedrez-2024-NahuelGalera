@@ -13,6 +13,15 @@ class Peon(Pieza):
         return "♟"
 
     def mover(self, inicio_fila, inicio_col, final_fila, final_col, tablero):
+        if not self.valid_positions(inicio_fila, inicio_col, final_fila, final_col, tablero):
+            return False
+
+        # Move the piece
+        tablero.set_piece(final_fila, final_col, self)
+        tablero.set_piece(inicio_fila, inicio_col, None)
+        return True
+
+    def valid_positions(self, inicio_fila, inicio_col, final_fila, final_col, tablero):
         direction = 1 if self.color == 'BLANCA' else -1
 
         if inicio_col == final_col:  # Moving forward
@@ -31,7 +40,4 @@ class Peon(Pieza):
         else:
             return False
 
-        # Move the piece
-        tablero.set_piece(final_fila, final_col, self)
-        tablero.set_piece(inicio_fila, inicio_col, None)
         return True
