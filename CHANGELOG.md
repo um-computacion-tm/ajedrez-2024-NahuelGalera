@@ -2,15 +2,15 @@
 
 ## NAHUEL GALERA
 
-## [0.35] -- 03-10-2024
+## [0.36] -- 04-10-2024
 
 ### Agregado
--   Validación de entrada en el método `obtener_movimiento` en `cli.py` para asegurar que las coordenadas estén dentro del rango válido del tablero de ajedrez.
--   Manejo de excepciones en `game.move` en `cli.py` para capturar y manejar errores de movimiento inválido.
+-   Pruebas unitarias para las funciones `main`, `jugar` y `obtener_movimiento` en `cli.py` utilizando el módulo `unittest`.
+-   Manejo de la excepción `SystemExit` en la función `main` para asegurar que el programa se cierra correctamente cuando el juego termina.
 
 ### Modificado
--   Mejorada la documentación y comentarios en `cli.py` para mayor claridad.
--   Separación de la lógica del juego y la interfaz de usuario en `cli.py` para mejorar la modularidad.
+-   Actualización de la función `main` en `cli.py` para llamar a `sys.exit(0)` cuando se captura la excepción `GameOver`.
+-   Corrección de las pruebas unitarias en `test_cli.py` para asegurar que `SystemExit` se maneja correctamente.
 
 ### Borrado
--   Código redundante en `cli.py`
+-   

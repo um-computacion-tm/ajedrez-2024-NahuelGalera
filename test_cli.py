@@ -1,79 +1,52 @@
-# test_tablero.py
 import unittest
-from tablero import Tablero
-from torre import Torre
-from caballo import Caballo
-from alfil import Alfil
-from reina import Reina
-from rey import Rey
-from peon import Peon
-from exceptions import InvalidMoveBishopMove
+from unittest.mock import patch, Mock
+from cli import main, jugar, obtener_movimiento
+from exceptions import GameOver  # Add this import
 
-class TestTablero(unittest.TestCase):
-    def setUp(self):
-        self.__tablero__ = Tablero()
+class TestAjedrezCLI(unittest.TestCase):
 
-    def test_initial_setup(self):
-        # Verificar que las piezas estén en las posiciones iniciales correctas
-        self.assertIsInstance(self.__tablero__.get_piece(0, 0), Torre)
-        self.assertIsInstance(self.__tablero__.get_piece(0, 1), Caballo)
-        self.assertIsInstance(self.__tablero__.get_piece(0, 2), Alfil)
-        self.assertIsInstance(self.__tablero__.get_piece(0, 3), Reina)
-        self.assertIsInstance(self.__tablero__.get_piece(0, 4), Rey)
-        self.assertIsInstance(self.__tablero__.get_piece(1, 0), Peon)
-        self.assertIsInstance(self.__tablero__.get_piece(7, 0), Torre)
-        self.assertIsInstance(self.__tablero__.get_piece(7, 1), Caballo)
-        self.assertIsInstance(self.__tablero__.get_piece(7, 2), Alfil)
-        self.assertIsInstance(self.__tablero__.get_piece(7, 3), Reina)
-        self.assertIsInstance(self.__tablero__.get_piece(7, 4), Rey)
-        self.assertIsInstance(self.__tablero__.get_piece(6, 0), Peon)
+    @patch('builtins.input', side_effect=['1', 'a', '2', 'a'])
+    def test_obtener_movimiento(self, mock_input):
+        from_fila, from_col, to_fila, to_col = obtener_movimiento()
+        self.assertEqual(from_fila, 0)
+        self.assertEqual(from_col, 0)
+        self.assertEqual(to_fila, 1)
+        self.assertEqual(to_col, 0)
 
-    def test_get_piece(self):
-        # Verificar que get_piece devuelva la pieza correcta
-        self.assertIsInstance(self.__tablero__.get_piece(0, 0), Torre)
-        self.assertIsNone(self.__tablero__.get_piece(4, 4))
+    @patch('builtins.input', side_effect=['r'])
+    def test_obtener_movimiento_rendirse(self, mock_input):
+        from_fila, from_col, to_fila, to_col = obtener_movimiento()
+        self.assertEqual(from_fila, 'r')
+        self.assertIsNone(from_col)
+        self.assertIsNone(to_fila)
+        self.assertIsNone(to_col)
 
-    def test_set_piece(self):
-        # Verificar que set_piece coloque la pieza en la posición correcta
-        alfil = Alfil("BLANCA", self.__tablero__)
-        self.__tablero__.set_piece(4, 4, alfil)
-        self.assertEqual(self.__tablero__.get_piece(4, 4), alfil)
+    @patch('cli.Ajedrez')
+    @patch('builtins.input', side_effect=['1', 'a', '2', 'a'])
+    def test_jugar(self, mock_input, MockAjedrez):
+        game = MockAjedrez()
+        jugar(game)
+        game.move.assert_called_once_with(0, 0, 1, 0)
+        game.__str__.assert_called_once()
+        game.turno.__str__.assert_called_once()
 
-    def test_mover_pieza(self):
-        # Verificar que mover_pieza mueva la pieza correctamente
-        self.__tablero__.mover_pieza(1, 0, 3, 0)  # Mover peón negro de (1, 0) a (3, 0)
-        self.assertIsInstance(self.__tablero__.get_piece(3, 0), Peon)
-        self.assertIsNone(self.__tablero__.get_piece(1, 0))
+    @patch('cli.Ajedrez')
+    @patch('builtins.input', side_effect=['r'])
+    def test_jugar_rendirse(self, mock_input, MockAjedrez):
+        game = MockAjedrez()
+        jugar(game)
+        game.rendirse.assert_called_once()
+        game.__str__.assert_called_once()
+        game.turno.__str__.assert_called_once()
 
-    def test_mover_pieza_invalid(self):
-        # Verificar que mover_pieza lance una excepción para un movimiento inválido
-        with self.assertRaises(ValueError):
-            self.__tablero__.mover_pieza(0, 0, 4, 4)  # Intentar mover torre negra de (0, 0) a (4, 4)
-
-    def test_no_pieces_left(self):
-        # Verificar que no_pieces_left devuelva True cuando no hay piezas del color dado
-        self.assertFalse(self.__tablero__.no_pieces_left("BLANCA"))
-        self.assertFalse(self.__tablero__.no_pieces_left("NEGRA"))
-
-    def test_peon_mover_un_cuadro(self):
-        # Verificar que el peón se mueva un cuadro hacia adelante
-        self.__tablero__.mover_pieza(1, 0, 2, 0)  # Mover peón negro de (1, 0) a (2, 0)
-        self.assertIsInstance(self.__tablero__.get_piece(2, 0), Peon)
-        self.assertIsNone(self.__tablero__.get_piece(1, 0))
-
-    def test_peon_mover_dos_cuadros(self):
-        # Verificar que el peón se mueva dos cuadros hacia adelante desde la posición inicial
-        self.__tablero__.mover_pieza(1, 0, 3, 0)  # Mover peón negro de (1, 0) a (3, 0)
-        self.assertIsInstance(self.__tablero__.get_piece(3, 0), Peon)
-        self.assertIsNone(self.__tablero__.get_piece(1, 0))
-
-    def test_peon_captura(self):
-        # Colocar una pieza blanca en la posición (2, 1) para capturar
-        self.__tablero__.set_piece(2, 1, Peon("BLANCA", self.__tablero__))
-        self.__tablero__.mover_pieza(1, 0, 2, 1)  # Mover peón negro de (1, 0) a (2, 1)
-        self.assertIsInstance(self.__tablero__.get_piece(2, 1), Peon)
-        self.assertEqual(self.__tablero__.get_piece(2, 1).color, "NEGRA")
-        self.assertIsNone(self.__tablero__.get_piece(1, 0))
+    @patch('cli.jugar')
+    @patch('cli.Ajedrez')
+    def test_main(self, MockAjedrez, mock_jugar):
+        game = MockAjedrez()
+        mock_jugar.side_effect = GameOver("Game Over")
+        with self.assertRaises(SystemExit):
+            main()
+        mock_jugar.assert_called_once_with(game)
 
 if __name__ == '__main__':
     unittest.main()

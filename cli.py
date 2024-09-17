@@ -1,3 +1,4 @@
+import sys
 from ajedrez import Ajedrez
 from exceptions import InvalidMove, GameOver, InvalidPiece, InvalidPlayer
 
@@ -10,7 +11,7 @@ def main():
             jugar(game)
         except GameOver as e:
             print(e)
-            break
+            sys.exit() # Exit the program
         except InvalidMove as e:
             print(e)
         except InvalidPlayer as e:
