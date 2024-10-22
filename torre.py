@@ -12,6 +12,13 @@ class Torre(Pieza):
     def negra_str(self):
         return "♖"
 
+    def __str__(self):
+        return 'R' if self.__color__ == 'BLANCA' else 'r'
+
+    def possible_moves(self, from_row, from_col):
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        return super().possible_moves_general(from_row, from_col, directions)
+
     def is_valid_move(self, from_fila, from_col, to_fila, to_col, tablero):
         # Verificar si el movimiento es en línea recta (vertical u horizontal)
         if from_fila != to_fila and from_col != to_col:
@@ -29,23 +36,6 @@ class Torre(Pieza):
             current_fila += step_fila
             current_col += step_col
 
-        # Verificar si la posición de destino tiene una pieza del mismo color
-        target_piece = tablero.get_piece(to_fila, to_col)
-        if target_piece is not None and target_piece.color == self.color:
-            return False
-
-        return True
-
-    def mover(self, inicio_fila, inicio_col, final_fila, final_col):
-        # Verificar si la posición final es válida
-        if not self.is_valid_move(inicio_fila, inicio_col, final_fila, final_col, self.tablero):
-            return False
-
-        # Mover la pieza
-        self.tablero.set_piece(final_fila, final_col, self)
-        self.tablero.set_piece(inicio_fila, inicio_col, None)
-
-        return True
-
-if __name__ == "__main__":
-    pass
+        # Verificar si la posición final está vacía o tiene una pieza del color opuesto
+        final_piece = tablero.get_piece(to_fila, to_col)
+        return final_piece is None or final_piece.color != self.__color__

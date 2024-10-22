@@ -12,26 +12,28 @@ class Rey(Pieza):
     def negra_str(self):
         return "♔"
 
-    def mover(self, inicio, final):
-        # El rey se puede mover en cualquier direccion de a 1 lugar
-        dx = abs(final[0] - inicio[0])
-        dy = abs(final[1] - inicio[1])
-        return dx <= 1 and dy <= 1
+    def __str__(self):
+        return 'K' if self.__color__ == 'BLANCA' else 'k'
+
+    def possible_moves(self, from_row, from_col):
+        directions = [(-1, -1), (-1, 1), (1, -1), (1, 1), (-1, 0), (1, 0), (0, -1), (0, 1)]
+        return super().possible_moves_general(from_row, from_col, directions, single_step=True)
 
     def is_valid_move(self, from_fila, from_col, to_fila, to_col, tablero):
         """
-        Verifica si el movimiento del rey es válido, considerando el estado del tablero.
+        Verifica si el movimiento del rey desde la posición inicial hasta la posición final es válido.
         """
         dx = abs(to_fila - from_fila)
         dy = abs(to_col - from_col)
-        
-        # Verifica si el movimiento es de un cuadro en cualquier dirección
-        if dx > 1 or dy > 1:
-            return False
+        if max(dx, dy) == 1:
+            # Verificar si la posición final está vacía o tiene una pieza del color opuesto
+            final_piece = tablero.get_piece(to_fila, to_col)
+            return final_piece is None or final_piece.color != self.__color__
+        return False
 
-        # Verifica si la posición final está ocupada por una pieza del mismo color
-        pieza_destino = tablero.get_piece(to_fila, to_col)
-        if pieza_destino and pieza_destino.color == self.color:
-            return False
-
-        return True
+    def mover(self, inicio_fila, inicio_col, final_fila, final_col):
+        if self.is_valid_move(inicio_fila, inicio_col, final_fila, final_col, self.__tablero__):
+            self.__tablero__.set_piece(final_fila, final_col, self)
+            self.__tablero__.set_piece(inicio_fila, inicio_col, None)
+            return True
+        return False

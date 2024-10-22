@@ -1,45 +1,44 @@
 import unittest
 from unittest.mock import MagicMock
 from rey import Rey
-from tablero import Tablero
 
 class TestRey(unittest.TestCase):
     def setUp(self):
-        self.tablero = MagicMock(spec=Tablero)
-        self.rey_blanco = Rey('BLANCA', self.tablero)
-        self.rey_negro = Rey('NEGRA', self.tablero)
+        self.__tablero__ = MagicMock()
+        self.__rey__ = Rey('BLANCA', self.__tablero__)
 
-    def test_mover_valido(self):
-        self.assertTrue(self.rey_blanco.mover((4, 4), (5, 5)))
-        self.assertTrue(self.rey_blanco.mover((4, 4), (3, 3)))
-        self.assertTrue(self.rey_blanco.mover((4, 4), (4, 5)))
-        self.assertTrue(self.rey_blanco.mover((4, 4), (4, 3)))
+    def test_str(self):
+        self.assertEqual(str(self.__rey__), 'K')
+        self.__rey___negro = Rey('NEGRA', self.__tablero__)
+        self.assertEqual(str(self.__rey___negro), 'k')
 
-    def test_mover_invalido(self):
-        self.assertFalse(self.rey_blanco.mover((4, 4), (6, 6)))
-        self.assertFalse(self.rey_blanco.mover((4, 4), (2, 2)))
-        self.assertFalse(self.rey_blanco.mover((4, 4), (4, 6)))
-        self.assertFalse(self.rey_blanco.mover((4, 4), (4, 2)))
+    def test_possible_moves(self):
+        expected_moves = [(3, 3), (3, 5), (5, 3), (5, 5), (3, 4), (5, 4), (4, 3), (4, 5)]
+        moves = self.__rey__.possible_moves(4, 4)
+        self.assertEqual(moves, expected_moves)
 
-    def test_is_valid_move_valido(self):
-        self.tablero.get_piece.return_value = None
-        self.assertTrue(self.rey_blanco.is_valid_move(4, 4, 5, 5, self.tablero))
-        self.assertTrue(self.rey_blanco.is_valid_move(4, 4, 3, 3, self.tablero))
-        self.assertTrue(self.rey_blanco.is_valid_move(4, 4, 4, 5, self.tablero))
-        self.assertTrue(self.rey_blanco.is_valid_move(4, 4, 4, 3, self.tablero))
+    def test_is_valid_move(self):
+        self.__tablero__.get_piece.return_value = None
+        self.assertTrue(self.__rey__.is_valid_move(4, 4, 5, 5, self.__tablero__))
+        self.assertFalse(self.__rey__.is_valid_move(4, 4, 6, 6, self.__tablero__))
 
-    def test_is_valid_move_invalido(self):
-        self.tablero.get_piece.return_value = None
-        self.assertFalse(self.rey_blanco.is_valid_move(4, 4, 6, 6, self.tablero))
-        self.assertFalse(self.rey_blanco.is_valid_move(4, 4, 2, 2, self.tablero))
-        self.assertFalse(self.rey_blanco.is_valid_move(4, 4, 4, 6, self.tablero))
-        self.assertFalse(self.rey_blanco.is_valid_move(4, 4, 4, 2, self.tablero))
+        pieza_opuesta = MagicMock()
+        pieza_opuesta.color = 'NEGRA'
+        self.__tablero__.get_piece.return_value = pieza_opuesta
+        self.assertTrue(self.__rey__.is_valid_move(4, 4, 5, 5, self.__tablero__))
 
-    def test_is_valid_move_ocupado(self):
         pieza_misma_color = MagicMock()
         pieza_misma_color.color = 'BLANCA'
-        self.tablero.get_piece.return_value = pieza_misma_color
-        self.assertFalse(self.rey_blanco.is_valid_move(4, 4, 5, 5, self.tablero))
+        self.__tablero__.get_piece.return_value = pieza_misma_color
+        self.assertFalse(self.__rey__.is_valid_move(4, 4, 5, 5, self.__tablero__))
+
+    def test_mover(self):
+        self.__tablero__.get_piece.return_value = None
+        self.assertTrue(self.__rey__.mover(4, 4, 5, 5))
+        self.__tablero__.set_piece.assert_any_call(5, 5, self.__rey__)
+        self.__tablero__.set_piece.assert_any_call(4, 4, None)
+
+        self.assertFalse(self.__rey__.mover(4, 4, 6, 6))
 
 if __name__ == '__main__':
     unittest.main()

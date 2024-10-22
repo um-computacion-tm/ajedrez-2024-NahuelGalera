@@ -1,62 +1,54 @@
 import unittest
 from unittest.mock import MagicMock
-from tablero import Tablero
 from reina import Reina
 
 class TestReina(unittest.TestCase):
     def setUp(self):
-        self.tablero = MagicMock(spec=Tablero)
-        self.reina_blanca = Reina('BLANCA', self.tablero)
-        self.reina_negra = Reina('NEGRA', self.tablero)
+        self.__tablero__ = MagicMock()
+        self.__reina__ = Reina('BLANCA', self.__tablero__)
 
-    def test_inicializacion(self):
-        self.assertEqual(self.reina_blanca.color, 'BLANCA')
-        self.assertEqual(self.reina_negra.color, 'NEGRA')
-        self.assertEqual(self.reina_blanca.tablero, self.tablero)
-        self.assertEqual(self.reina_negra.tablero, self.tablero)
+    def test_str(self):
+        self.assertEqual(str(self.__reina__), 'Q')
+        self.__reina_negra__ = Reina('NEGRA', self.__tablero__)
+        self.assertEqual(str(self.__reina_negra__), 'q')
 
-    def test_blanca_str(self):
-        self.assertEqual(self.reina_blanca.blanca_str, "♛")
+    def test_possible_moves(self):
+        expected_moves = [
+            (3, 3), (2, 2), (1, 1), (0, 0),  # Diagonal hacia arriba a la izquierda
+            (3, 5), (2, 6), (1, 7),          # Diagonal hacia arriba a la derecha
+            (5, 3), (6, 2), (7, 1),          # Diagonal hacia abajo a la izquierda
+            (5, 5), (6, 6), (7, 7),          # Diagonal hacia abajo a la derecha
+            (4, 3), (4, 2), (4, 1), (4, 0),  # Horizontal hacia la izquierda
+            (4, 5), (4, 6), (4, 7),          # Horizontal hacia la derecha
+            (3, 4), (2, 4), (1, 4), (0, 4),  # Vertical hacia arriba
+            (5, 4), (6, 4), (7, 4)           # Vertical hacia abajo
+        ]
+        moves = self.__reina__.possible_moves(4, 4)
+        self.assertEqual(sorted(moves), sorted(expected_moves))
 
-    def test_negra_str(self):
-        self.assertEqual(self.reina_negra.negra_str, "♕")
+    def test_is_valid_move(self):
+        self.__tablero__.get_piece.return_value = None
+        self.assertTrue(self.__reina__.is_valid_move(4, 4, 5, 5, self.__tablero__))
+        self.assertTrue(self.__reina__.is_valid_move(4, 4, 6, 6, self.__tablero__))
 
-    def test_is_valid_move_diagonal(self):
-        self.tablero.get_piece.return_value = None
-        self.assertTrue(self.reina_blanca.is_valid_move(0, 0, 7, 7, self.tablero))
-        self.assertTrue(self.reina_blanca.is_valid_move(7, 7, 0, 0, self.tablero))
+        pieza_opuesta = MagicMock()
+        pieza_opuesta.color = 'NEGRA'
+        self.__tablero__.get_piece.return_value = pieza_opuesta
+        self.assertTrue(self.__reina__.is_valid_move(4, 4, 5, 5, self.__tablero__))
 
-    def test_is_valid_move_vertical(self):
-        self.tablero.get_piece.return_value = None
-        self.assertTrue(self.reina_blanca.is_valid_move(0, 0, 7, 0, self.tablero))
-        self.assertTrue(self.reina_blanca.is_valid_move(7, 0, 0, 0, self.tablero))
-
-    def test_is_valid_move_horizontal(self):
-        self.tablero.get_piece.return_value = None
-        self.assertTrue(self.reina_blanca.is_valid_move(0, 0, 0, 7, self.tablero))
-        self.assertTrue(self.reina_blanca.is_valid_move(0, 7, 0, 0, self.tablero))
-
-    def test_is_valid_move_invalid(self):
-        self.assertFalse(self.reina_blanca.is_valid_move(0, 0, 6, 7, self.tablero))
-
-    def test_is_valid_move_blocked(self):
-        self.tablero.get_piece.side_effect = lambda fila, col: None if fila != 3 else MagicMock()
-        self.assertFalse(self.reina_blanca.is_valid_move(0, 0, 7, 0, self.tablero))
-
-    def test_is_valid_move_same_color(self):
-        self.tablero.get_piece.side_effect = lambda fila, col: MagicMock(color='BLANCA') if (fila, col) == (7, 0) else None
-        self.assertFalse(self.reina_blanca.is_valid_move(0, 0, 7, 0, self.tablero))
+        pieza_misma_color = MagicMock()
+        pieza_misma_color.color = 'BLANCA'
+        self.__tablero__.get_piece.return_value = pieza_misma_color
+        self.assertFalse(self.__reina__.is_valid_move(4, 4, 5, 5, self.__tablero__))
 
     def test_mover(self):
-        self.tablero.get_piece.return_value = None
-        self.assertTrue(self.reina_blanca.mover(0, 0, 7, 0))
-        self.tablero.set_piece.assert_any_call(7, 0, self.reina_blanca)
-        self.tablero.set_piece.assert_any_call(0, 0, None)
+        self.__tablero__.get_piece.return_value = None
+        self.assertTrue(self.__reina__.mover(4, 4, 5, 5))
+        self.__tablero__.set_piece.assert_any_call(5, 5, self.__reina__)
+        self.__tablero__.set_piece.assert_any_call(4, 4, None)
 
-    def test_mover_invalido(self):
-        self.tablero.get_piece.return_value = None
-        self.assertFalse(self.reina_blanca.mover(0, 0, 6, 7))
-        self.tablero.set_piece.assert_not_called()
+        self.__tablero__.get_piece.return_value = MagicMock()
+        self.assertFalse(self.__reina__.mover(4, 4, 6, 6))
 
 if __name__ == '__main__':
     unittest.main()

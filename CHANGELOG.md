@@ -2,14 +2,14 @@
 
 ## NAHUEL GALERA
 
-## [1.0] -- 22-10-2024
+## [1.1] -- 22-10-2024
 
 ### Agregado
--   .coveragerc
--   
+-   testeos completos
+-   entrega final
 
 ### Modificado
--   Todos los testeos completos
+-   
 -   
 
 ### Borrado

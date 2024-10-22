@@ -1,12 +1,29 @@
-# first-circleci-NahuelGalera
-first-circleci-NahuelGalera created by GitHub Classroom
+# Ajedrez 2024
+
+## Descripción
+
+Ajedrez 2024 es una aplicación de ajedrez desarrollada para proporcionar una experiencia de juego completa y una suite de pruebas para garantizar la calidad del código. Este documento proporciona instrucciones detalladas sobre cómo poner en funcionamiento la aplicación en modo de prueba y en modo de juego utilizando Docker.
+
+## Requisitos
+
+- Docker
+
+## Como se Juega
+Reglas normales de ajedrez, el jugador que se quede sin fichas o si se rinde pierde.
 
 
-# CircleCI
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/um-computacion-tm/ajedrez-2024-NahuelGalera/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/um-computacion-tm/ajedrez-2024-NahuelGalera/tree/main)
+### Clonar el Repositorio
 
-# Maintainability
-[![Maintainability](https://api.codeclimate.com/v1/badges/2fea2a9ed3bd30893dd3/maintainability)](https://codeclimate.com/github/um-computacion-tm/ajedrez-2024-NahuelGalera/maintainability)
+Primero, clona el repositorio del proyecto:
 
-# Test Coverage
-<a href="https://codeclimate.com/github/um-computacion-tm/ajedrez-2024-NahuelGalera/test_coverage"><img src="https://api.codeclimate.com/v1/badges/2fea2a9ed3bd30893dd3/test_coverage" /></a>
+```bash
+git clone git@github.com:um-computacion-tm/ajedrez-2024-NahuelGalera.git
+
+### Ejecutar el juego
+
+Crear imágen de Docker del juego
+
+docker buildx build -t ajedrez-2024-NahuelGalera .
+Ejecutar los tests y el juego
+
+docker run -i ajedrez-2024-NahuelGalera
