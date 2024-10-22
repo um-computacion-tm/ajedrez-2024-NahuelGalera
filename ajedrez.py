@@ -1,67 +1,54 @@
 from tablero import Tablero
-from exceptions import InvalidMove, InvalidPlayer, GameOver
+from exceptions import GameOver
 
 class Ajedrez:
     def __init__(self):
         self.__tablero__ = Tablero()
-        self.__turno__ = "BLANCA"
-        self.__rendicion__ = None  # Variable para rastrear si un jugador se ha rendido
-        self.__ganador__ = None  # Variable para almacenar el ganador
-        self.__historial__ = []  # Historial de movimientos
+        self.__turno__ = 'BLANCA'  # El turno inicial es de las piezas blancas
+        self.__terminado__ = False
+        self.__ganador__ = None
 
-    def is_jugando(self):
-        return not self.is_game_over()
+    def move(self, from_x, from_y, to_x, to_y):
+        piece = self.__tablero__.get_piece(from_x, from_y)
+        if piece and piece.color == self.__turno__:
+            if piece.is_valid_move(from_x, from_y, to_x, to_y, self.__tablero__):
+                self.__tablero__.mover_pieza(from_x, from_y, to_x, to_y)
+                self.cambiar_turno()
+                if self.is_terminado():
+                    self.__ganador__ = self.obtener_ganador()
+                return True
+            else:
+                print("Movimiento inválido.")
+                return False
+        else:
+            print("No es el turno de esta pieza o no hay pieza en la posición inicial.")
+            return False
 
-    def move(self, from_fila, from_col, to_fila, to_col):
-        piece = self.__tablero__.get_piece(from_fila, from_col)
-        if piece is None:
-            raise InvalidMove("No hay pieza en la posición inicial.")
-        if piece.color != self.__turno__:
-            raise InvalidPlayer(f"Movimiento inválido: es el turno de las piezas {self.__turno__}.")
-        if not piece.valid_positions(from_fila, from_col, to_fila, to_col):
-            raise InvalidMove("Movimiento inválido según la pieza.")
-        
-        self.__tablero__.mover_pieza(from_fila, from_col, to_fila, to_col)
-        self.__historial__.append(((from_fila, from_col), (to_fila, to_col)))
-        
-        self.__cambiar_turno()
-        print(f"Turno cambiado a: {self.__turno__}")
-        
-        # Check for game-over conditions
-        if self.is_game_over():
-            raise GameOver(f"El jugador con piezas {self.__turno__} ha perdido.")
+    def cambiar_turno(self):
+        self.__turno__ = 'NEGRA' if self.__turno__ == 'BLANCA' else 'BLANCA'
 
-    @property
-    def turno(self):
-        return self.__turno__
+    def rendirse(self, color):
+        self.__terminado__ = True
+        self.__ganador__ = 'NEGRA' if color == 'BLANCA' else 'BLANCA'
+        raise GameOver(f"El jugador con piezas {color} se ha rendido. El ganador es: {self.__ganador__}")
 
-    def mostrar_tablero(self):
-        return str(self.__tablero__)
+    def empate(self):
+        self.__terminado__ = True
+        self.__ganador__ = 'Empate'
+        raise GameOver("El juego ha terminado en empate.")
 
-    def __cambiar_turno(self):
-        self.__turno__ = "NEGRA" if self.__turno__ == "BLANCA" else "BLANCA"
+    def is_terminado(self):
+        # El juego termina si uno de los jugadores ha perdido todas sus piezas
+        piezas_blancas = any(pieza for fila in self.__tablero__.__board__ for pieza in fila if pieza and pieza.color == 'BLANCA')
+        piezas_negras = any(pieza for fila in self.__tablero__.__board__ for pieza in fila if pieza and pieza.color == 'NEGRA')
+        return self.__terminado__ or not piezas_blancas or not piezas_negras
 
-    def rendirse(self):
-        self.__rendicion__ = self.__turno__
-        self.__ganador__ = "NEGRA" if self.__turno__ == "BLANCA" else "BLANCA"
-        raise GameOver(f"El jugador con piezas {self.__turno__} se ha rendido.")
-
-    def is_rendicion(self):
-        return self.__rendicion__ is not None
-
-    def is_game_over(self):
-        if self.is_rendicion() and (self.__tablero__.no_pieces_left("BLANCA") or self.__tablero__.no_pieces_left("NEGRA")):
-            self.__ganador__ = "NEGRA" if self.__tablero__.no_pieces_left("BLANCA") else "BLANCA"
-            return True
-        return False
-
-    def reiniciar(self):
-        self.__init__()
-
-    @property
-    def ganador(self):
+    def obtener_ganador(self):
+        # El ganador es el jugador que aún tiene piezas en el tablero
+        piezas_blancas = any(pieza for fila in self.__tablero__.__board__ for pieza in fila if pieza and pieza.color == 'BLANCA')
+        piezas_negras = any(pieza for fila in self.__tablero__.__board__ for pieza in fila if pieza and pieza.color == 'NEGRA')
+        if not piezas_blancas:
+            return 'NEGRA'
+        elif not piezas_negras:
+            return 'BLANCA'
         return self.__ganador__
-
-    @property
-    def historial(self):
-        return self.__historial__

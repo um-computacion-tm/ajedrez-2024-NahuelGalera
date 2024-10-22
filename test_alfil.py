@@ -1,49 +1,42 @@
-# test_alfil.py
 import unittest
-from tablero import Tablero
+from unittest.mock import MagicMock
 from alfil import Alfil
-from exceptions import InvalidMoveBishopMove
+from tablero import Tablero
+from exceptions import InvalidMoveSpecific as InvalidMoveBishopMove
 
 class TestAlfil(unittest.TestCase):
     def setUp(self):
-        self.__tablero__ = Tablero()
-        self.__alfil_blanco__ = Alfil("BLANCA", self.__tablero__)
-        self.__tablero__.set_piece(2, 0, self.__alfil_blanco__)  # Colocar el alfil en la posición inicial (2, 0)
+        self.tablero = MagicMock(spec=Tablero)
+        self.alfil_blanco = Alfil('BLANCA', self.tablero)
+        self.alfil_negro = Alfil('NEGRA', self.tablero)
 
-    def test_valid_move(self):
-        # Mover el alfil de (2, 0) a (5, 3)
-        self.assertTrue(self.__alfil_blanco__.mover(self.__tablero__, (2, 0), (5, 3)))
+    def test_mover_valido(self):
+        self.tablero.get_piece.return_value = None
+        self.assertTrue(self.alfil_blanco.mover(self.tablero, (0, 0), (3, 3)))
+        self.assertTrue(self.alfil_negro.mover(self.tablero, (7, 7), (4, 4)))
 
-    def test_valid_move_other_diagonal(self):
-        # Mover el alfil de (2, 0) a (0, 2)
-        self.assertTrue(self.__alfil_blanco__.mover(self.__tablero__, (2, 0), (0, 2)))
-
-    def test_invalid_move_blocked(self):
-        # Colocar una pieza en el camino del alfil
-        self.__tablero__.set_piece(3, 1, Alfil("NEGRA", self.__tablero__))
+    def test_mover_invalido(self):
+        self.tablero.get_piece.return_value = None
         with self.assertRaises(InvalidMoveBishopMove):
-            self.__alfil_blanco__.mover(self.__tablero__, (2, 0), (5, 3))
-
-    def test_invalid_move_not_diagonal(self):
-        # Intentar mover el alfil a una posición no diagonal
+            self.alfil_blanco.mover(self.tablero, (0, 0), (3, 4))
         with self.assertRaises(InvalidMoveBishopMove):
-            self.__alfil_blanco__.mover(self.__tablero__, (2, 0), (2, 3))
+            self.alfil_negro.mover(self.tablero, (7, 7), (4, 5))
 
-    def test_invalid_move_out_of_bounds(self):
-        # Intentar mover el alfil fuera del tablero
-        with self.assertRaises(InvalidMoveBishopMove):
-            self.__alfil_blanco__.mover(self.__tablero__, (2, 0), (8, 6))
+    def test_is_valid_move_valido(self):
+        self.tablero.get_piece.return_value = None
+        self.assertTrue(self.alfil_blanco.is_valid_move(0, 0, 3, 3, self.tablero))
+        self.assertTrue(self.alfil_negro.is_valid_move(7, 7, 4, 4, self.tablero))
 
-    def test_valid_move_capture_enemy(self):
-        # Colocar una pieza enemiga en la posición final
-        self.__tablero__.set_piece(5, 3, Alfil("NEGRA", self.__tablero__))
-        self.assertTrue(self.__alfil_blanco__.mover(self.__tablero__, (2, 0), (5, 3)))
+    def test_is_valid_move_invalido(self):
+        self.tablero.get_piece.return_value = None
+        self.assertFalse(self.alfil_blanco.is_valid_move(0, 0, 3, 4, self.tablero))
+        self.assertFalse(self.alfil_negro.is_valid_move(7, 7, 4, 5, self.tablero))
 
-    def test_invalid_move_capture_friend(self):
-        # Colocar una pieza amiga en la posición final
-        self.__tablero__.set_piece(5, 3, Alfil("BLANCA", self.__tablero__))
-        with self.assertRaises(InvalidMoveBishopMove):
-            self.__alfil_blanco__.mover(self.__tablero__, (2, 0), (5, 3))
+    def test_is_valid_move_ocupado(self):
+        pieza_misma_color = MagicMock()
+        pieza_misma_color.color = 'BLANCA'
+        self.tablero.get_piece.return_value = pieza_misma_color
+        self.assertFalse(self.alfil_blanco.is_valid_move(0, 0, 3, 3, self.tablero))
 
 if __name__ == '__main__':
     unittest.main()

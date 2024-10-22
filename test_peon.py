@@ -1,39 +1,53 @@
 import unittest
-from peon import Peon
 from piezas import Pieza
-from tablero import Tablero  # Asumiendo que tienes una clase Tablero
+from peon import Peon
+
+class MockTablero:
+    def __init__(self):
+        self.board = [[None for _ in range(8)] for _ in range(8)]
+
+    def set_piece(self, x, y, piece):
+        self.board[x][y] = piece
+
+    def get_piece(self, x, y):
+        return self.board[x][y]
+
+    def is_empty(self, x, y):
+        return self.board[x][y] is None
+
+    def is_enemy(self, x, y, color):
+        piece = self.board[x][y]
+        return piece is not None and piece.color != color
 
 class TestPeon(unittest.TestCase):
     def setUp(self):
-        self.__tablero__ = Tablero()
-        self.__peon_blanco__ = Peon('BLANCA', self.__tablero__)
-        self.__peon_negro__ = Peon('NEGRA', self.__tablero__)
+        self.tablero = MockTablero()
+        self.peon_blanco = Peon('BLANCA', self.tablero)
+        self.peon_negro = Peon('NEGRA', self.tablero)
+        self.tablero.set_piece(6, 0, self.peon_blanco)
+        self.tablero.set_piece(1, 0, self.peon_negro)
 
-    def test_blanca_str(self):
-        self.assertEqual(self.__peon_blanco__.blanca_str, "♙")
+    def test_mover_un_cuadro_adelante(self):
+        self.assertTrue(self.peon_blanco.mover(6, 0, 5, 0))
+        self.assertTrue(self.peon_negro.mover(1, 0, 2, 0))
 
-    def test_negra_str(self):
-        self.assertEqual(self.__peon_negro__.negra_str, "♟")
+    def test_mover_dos_cuadros_adelante_inicial(self):
+        self.assertTrue(self.peon_blanco.mover(6, 0, 4, 0))
+        self.assertTrue(self.peon_negro.mover(1, 0, 3, 0))
 
-    def test_mover_valido(self):
-        self.__tablero__.set_piece(1, 0, self.__peon_blanco__)
-        self.assertTrue(self.__peon_blanco__.mover(1, 0, 3, 0))  # Movimiento inicial de dos casillas
-        self.assertTrue(self.__peon_blanco__.mover(3, 0, 4, 0))  # Movimiento de una casilla
+    def test_mover_dos_cuadros_adelante_no_inicial(self):
+        self.peon_blanco.mover(6, 0, 5, 0)
+        self.assertFalse(self.peon_blanco.mover(5, 0, 3, 0))
+
+    def test_mover_diagonal_captura(self):
+        self.tablero.set_piece(5, 1, Peon('NEGRA', self.tablero))
+        self.assertTrue(self.peon_blanco.mover(6, 0, 5, 1))
+
+    def test_mover_diagonal_no_captura(self):
+        self.assertFalse(self.peon_blanco.mover(6, 0, 5, 1))
 
     def test_mover_invalido(self):
-        self.__tablero__.set_piece(1, 0, self.__peon_blanco__)
-        self.assertFalse(self.__peon_blanco__.mover(1, 0, 4, 0))  # Movimiento inválido de tres casillas
-        self.assertFalse(self.__peon_blanco__.mover(1, 0, 1, 1))  # Movimiento lateral inválido
-
-    def test_captura_valida(self):
-        peon_negro = Peon('NEGRA', self.__tablero__)
-        self.__tablero__.set_piece(1, 0, self.__peon_blanco__)
-        self.__tablero__.set_piece(2, 1, peon_negro)
-        self.assertTrue(self.__peon_blanco__.mover(1, 0, 2, 1))  # Captura válida
-
-    def test_captura_invalida(self):
-        self.__tablero__.set_piece(1, 0, self.__peon_blanco__)
-        self.assertFalse(self.__peon_blanco__.mover(1, 0, 2, 1))  # Captura inválida sin pieza enemiga
+        self.assertFalse(self.peon_blanco.mover(6, 0, 4, 1))
 
 if __name__ == '__main__':
     unittest.main()

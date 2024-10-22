@@ -1,4 +1,3 @@
-# piezas.py
 class Pieza:
     def __init__(self, color, tablero):
         self.__color__ = color
@@ -12,5 +11,8 @@ class Pieza:
     def tablero(self):
         return self.__tablero__
 
-    def __str__(self):
-        return self.blanca_str if self.__color__ == "BLANCA" else self.negra_str
+    def mover(self, inicio_fila, inicio_col, final_fila, final_col):
+        raise NotImplementedError("Este método debe ser implementado por las subclases")
+
+    def is_valid_move(self, tablero, from_x, from_y, to_x, to_y):
+        raise NotImplementedError("Este método debe ser implementado por las subclases")
