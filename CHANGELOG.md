@@ -2,20 +2,15 @@
 
 ## NAHUEL GALERA
 
-## [0.16] -- 04-09-2024
+## [1.0] -- 22-10-2024
 
 ### Agregado
--   Movimiento caballo
--   Excepcion movimiento torre
+-   .coveragerc
 -   
 
 ### Modificado
--   
--   
--   
+-   Todos los testeos completos
 -   
 
 ### Borrado
 -   
-- 
-- 

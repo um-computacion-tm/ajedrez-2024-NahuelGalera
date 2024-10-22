@@ -1,0 +1,36 @@
+import unittest
+from exceptions import InvalidMove, InvalidPiece, InvalidPlayer, InvalidMoveNoPiece, InvalidMoveSpecific, GameOver
+
+class TestExceptions(unittest.TestCase):
+    def test_invalid_piece_default_message(self):
+        exception = InvalidPiece()
+        self.assertEqual(str(exception), "Movimiento inválido: Pieza incorrecta")
+        self.assertEqual(exception.__message__, "Movimiento inválido: Pieza incorrecta")
+        self.assertEqual(exception.args[0], "Movimiento inválido: Pieza incorrecta")
+
+    def test_invalid_piece_custom_message(self):
+        exception = InvalidPiece("Custom message")
+        self.assertEqual(str(exception), "Custom message")
+        self.assertEqual(exception.__message__, "Custom message")
+        self.assertEqual(exception.args[0], "Custom message")
+
+    def test_invalid_player_default_message(self):
+        exception = InvalidPlayer()
+        self.assertEqual(str(exception), "Movimiento inválido: Jugador incorrecto")
+        self.assertEqual(exception.__message__, "Movimiento inválido: Jugador incorrecto")
+        self.assertEqual(exception.args[0], "Movimiento inválido: Jugador incorrecto")
+
+    def test_invalid_player_custom_message(self):
+        exception = InvalidPlayer("Custom message")
+        self.assertEqual(str(exception), "Custom message")
+        self.assertEqual(exception.__message__, "Custom message")
+        self.assertEqual(exception.args[0], "Custom message")
+
+    def test_invalid_move_no_piece_default_message(self):
+        exception = InvalidMoveNoPiece()
+        self.assertEqual(str(exception), "Movimiento inválido: No hay pieza en la posición inicial")
+        self.assertEqual(exception.__message__, "Movimiento inválido: No hay pieza en la posición inicial")
+        self.assertEqual(exception.args[0], "Movimiento inválido: No hay pieza en la posición inicial")
+
+if __name__ == '__main__':
+    unittest.main()
