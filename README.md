@@ -2,28 +2,32 @@
 
 ## Descripción
 
-Ajedrez 2024 es una aplicación de ajedrez desarrollada para proporcionar una experiencia de juego completa y una suite de pruebas para garantizar la calidad del código. Este documento proporciona instrucciones detalladas sobre cómo poner en funcionamiento la aplicación en modo de prueba y en modo de juego utilizando Docker.
+Este proyecto es un juego de ajedrez implementado en Python utilizando un enfoque orientado a objetos. 
+Permite una partida de dos jugadores utilizando las reglas normales del ajedrez comun.
 
 ## Requisitos
 
 - Docker
 
-## Como se Juega
+## Caracteristicas
 Reglas normales de ajedrez, el jugador que se quede sin fichas o si se rinde pierde.
 
 
-### Clonar el Repositorio
+### Comandos que debe ejecutar desde la terminal
+## Instalación:
+# Instalación de Docker
 
-Primero, clona el repositorio del proyecto:
+sudo apt install docker
 
-```bash
-git clone git@github.com:um-computacion-tm/ajedrez-2024-NahuelGalera.git
+# Clonar el repositorio del juego
 
-### Ejecutar el juego
+git clone https://github.com/um-computacion-tm/ajedrez-2024-NahuelGalera.git
 
-Crear imágen de Docker del juego
+## Ejecutar el juego
+# Crear imágen de Docker del juego
 
 docker buildx build -t ajedrez-2024-NahuelGalera .
-Ejecutar los tests y el juego
+
+# Ejecutar los tests y el juego
 
 docker run -i ajedrez-2024-NahuelGalera
